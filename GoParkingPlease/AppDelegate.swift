@@ -82,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     private func setRootViewController() {
         DispatchQueue.main.async {
-            let loginVC = Constants.Storyboard.Main.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+            let loginVC = Constants.Storyboard.Main.instantiateViewController(withIdentifier: "splashvc")
 //            splitViewController.delegate = self
 //            splitViewController.modalPresentationStyle = .currentContext
 //            splitViewController.preferredDisplayMode = .allVisible
