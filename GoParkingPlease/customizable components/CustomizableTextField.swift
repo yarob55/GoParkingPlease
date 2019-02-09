@@ -18,7 +18,25 @@ import UIKit
         }
     }
     
+    override func leftViewRect(forBounds bounds: CGRect) -> CGRect {
+        var textRect = super.leftViewRect(forBounds: bounds)
+        textRect.origin.x += 6
+        return textRect
+    }
     
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
+        var textRect = super.textRect(forBounds: bounds)
+        textRect.origin.x += 6
+        return textRect
+    }
+    
+    override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
+        return textRect(forBounds: bounds)
+    }
+    
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
+        return textRect(forBounds: bounds)
+    }
     
     
     @IBInspectable var yShadow:CGFloat = 0

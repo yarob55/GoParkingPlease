@@ -9,7 +9,25 @@
 import UIKit
 import MapKit
 
-class ParkingAreaAnnotation: NSObject, MKAnnotation {
+class ParkingAreaAnnotationGreen: NSObject, MKAnnotation {
+    var coordinate: CLLocationCoordinate2D
+    
+    init(coordinate: CLLocationCoordinate2D) {
+        self.coordinate = coordinate
+        super.init()
+    }
+}
+
+class ParkingAreaAnnotationRed: NSObject, MKAnnotation {
+    var coordinate: CLLocationCoordinate2D
+    
+    init(coordinate: CLLocationCoordinate2D) {
+        self.coordinate = coordinate
+        super.init()
+    }
+}
+
+class ParkingAreaAnnotationYello: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     
     init(coordinate: CLLocationCoordinate2D) {

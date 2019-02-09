@@ -30,7 +30,8 @@ class MapVC: UIViewController {
     @IBOutlet weak var resColorView: UIView!
     @IBOutlet weak var resColorTitle: UILabel!
     @IBOutlet weak var resColorImage: UIImageView!
-    @IBOutlet weak var gradientView: DesignableView!
+    @IBOutlet weak var limtedField: UILabel!
+    @IBOutlet weak var resNumField: UILabel!
     
     let coreLocation = CLLocationCoordinate2D(latitude: 22.315802, longitude: 39.106159)
     lazy var mapOverview = UIView(frame: mapView.frame)
@@ -42,7 +43,6 @@ class MapVC: UIViewController {
         resViewTopConstraint.constant = 500
         setResMode(hidden: true)
         textField.layer.cornerRadius = 8
-        self.gradientView.backgroundColor = .clear
         zoomMapViewOut(to: coreLocation.latitude, long: coreLocation.longitude)
     }
     
@@ -71,10 +71,17 @@ class MapVC: UIViewController {
         let clock = FUIIconLibrary.indicator.clock.withRenderingMode(.alwaysTemplate)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: clock, style: .done, target: self, action: #selector(showLogs))
         
+        mapView.register(BuildingMarker.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+        mapView.register(ParkingMarkerRed.self, forAnnotationViewWithReuseIdentifier: "red")
+        mapView.register(ParkingMarkerYellow.self, forAnnotationViewWithReuseIdentifier: "yellow")
+        mapView.register(ParkingMarkerGreen.self, forAnnotationViewWithReuseIdentifier: "green")
+        
         mapView.delegate = self
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        smallsmall()
         
         textField.delegate = self
         
@@ -104,7 +111,9 @@ class MapVC: UIViewController {
         resButton.backgroundColor = color
         resColorView.backgroundColor = color
         resColorTitle.textColor = color
+        let image = resColorImage.image?.withRenderingMode(.alwaysTemplate)
         resColorImage.tintColor = color
+        resColorImage.image = image
     }
     
     private func fetchData() {
@@ -127,10 +136,30 @@ class MapVC: UIViewController {
         }
     }
     
-    class ParkingMarker: FUIMarkerAnnotationView {
+    class ParkingMarkerGreen: FUIMarkerAnnotationView {
         override var annotation: MKAnnotation? {
             willSet {
-                markerTintColor = .preferredFioriColor(forStyle: .map1)
+                markerTintColor = UIColor(red: 58/255, green: 131/255, blue: 91/255, alpha: 1)
+                glyphImage = FUIIconLibrary.system.pin.withRenderingMode(.alwaysTemplate)
+                displayPriority = .defaultHigh
+            }
+        }
+    }
+    
+    class ParkingMarkerRed: FUIMarkerAnnotationView {
+        override var annotation: MKAnnotation? {
+            willSet {
+                markerTintColor = UIColor(red: 217/255, green: 54/255, blue: 76/255, alpha: 1)
+                glyphImage = FUIIconLibrary.system.pin.withRenderingMode(.alwaysTemplate)
+                displayPriority = .defaultHigh
+            }
+        }
+    }
+    
+    class ParkingMarkerYellow: FUIMarkerAnnotationView {
+        override var annotation: MKAnnotation? {
+            willSet {
+                markerTintColor = UIColor(red: 243/255, green: 157/255, blue: 39/255, alpha: 1)
                 glyphImage = FUIIconLibrary.system.pin.withRenderingMode(.alwaysTemplate)
                 displayPriority = .defaultHigh
             }
@@ -140,19 +169,17 @@ class MapVC: UIViewController {
     func loadPins() {
         
         
-        
-        
-        for area in logs {
-            if let lat = area.latitude, let long = area.longitude {
-                let annoatation = MKPointAnnotation()
-                annoatation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        for building in logs {
+            if let lat = building.latitude, let long = building.longitude {
+                let annoatation = BuildingAnnotation(coordinate: CLLocationCoordinate2D(latitude: lat, longitude: long))
+//                annoatation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
                 mapView.addAnnotation(annoatation)
             }
         }
     }
 
     func choose() {
-        mapView.register(ParkingMarker.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+        
         
         mapView.removeAnnotations(mapView.annotations)
         loadPins()
@@ -160,9 +187,9 @@ class MapVC: UIViewController {
     }
     
     func smallsmall() {
-        tableViewTopConstraint.constant = 362
-        tf_right.constant = 38
-        tf_left.constant = 38
+        tableViewTopConstraint.constant = 600
+        tf_right.constant = 28
+        tf_left.constant = 28
         tf_top.constant = 10
         cancelButton.isHidden = true
         UIView.animate(withDuration: 0.2, animations: {
@@ -215,6 +242,28 @@ extension MapVC: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         mapView.centerCoordinate = userLocation.location!.coordinate
     }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let defaultId = MKMapViewDefaultAnnotationViewReuseIdentifier
+        let id1 = "red"
+        let id2 = "green"
+        let id3 = "yellow"
+        
+        if annotation is BuildingAnnotation {
+            var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: defaultId) ?? MKPinAnnotationView(annotation: annotation, reuseIdentifier: defaultId)
+            return pinView
+        } else if annotation is ParkingAreaAnnotationYello {
+            var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: id3) ?? MKPinAnnotationView(annotation: annotation, reuseIdentifier: id3)
+            return pinView
+        } else if annotation is ParkingAreaAnnotationRed {
+            var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: id1) ?? MKPinAnnotationView(annotation: annotation, reuseIdentifier: id1)
+            return pinView
+        } else {
+            var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: id2) ?? MKPinAnnotationView(annotation: annotation, reuseIdentifier: id2)
+            return pinView
+        }
+        
+    }
 }
 
 
@@ -222,6 +271,10 @@ extension MapVC: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         bigbig()
         setResMode(hidden: false)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        setResMode(hidden: true)
     }
 }
 
@@ -264,16 +317,26 @@ extension MapVC: UITableViewDataSource, UITableViewDelegate {
                     })
                     if let area = areasSorted.first {
                         let slotsAvailable = area.slotsAvailable!
+                        var annotation: MKAnnotation!
                         if slotsAvailable <= 5 {
                             self.setResColor(.ourRed)
+                            self.limtedField.text = "Jammed"
+                            annotation = ParkingAreaAnnotationRed(coordinate: CLLocationCoordinate2D(latitude: area.latitude!, longitude: area.longitude!))
                         } else if slotsAvailable <= 10 {
                             self.setResColor(.ourYellow)
+                            self.limtedField.text = "Limted"
+                            annotation = ParkingAreaAnnotationYello(coordinate: CLLocationCoordinate2D(latitude: area.latitude!, longitude: area.longitude!))
                         } else {
                             self.setResColor(.ourGreen)
+                            self.limtedField.text = "Available"
+                            annotation = ParkingAreaAnnotationGreen(coordinate: CLLocationCoordinate2D(latitude: area.latitude!, longitude: area.longitude!))
                         }
-                        self.gradientView.backgroundColor = .white
                         self.view.layoutIfNeeded()
                         self.zoomMapViewIn(to: area.latitude!, long: area.longitude!)
+                        
+                        self.mapView.addAnnotation(annotation)
+                        self.resColorTitle.text = area.name
+                        self.resNumField.text = "\(slotsAvailable) empty slots"
                     }
                     
                 }

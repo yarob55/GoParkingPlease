@@ -86,7 +86,7 @@ class LoginVC: UIViewController, SAPFioriLoadingIndicator
     @IBAction func login(_ sender: UIButton) {
         showFioriLoadingIndicator()
         DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-            let vc = Constants.Storyboard.MapVC.instantiateViewController(withIdentifier: "MapVC") as! MapVC
+            let vc = Constants.Storyboard.MapVC.instantiateViewController(withIdentifier: "MapVC")
             self.present(vc, animated: true, completion: nil)
         }
     }
