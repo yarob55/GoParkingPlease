@@ -32,6 +32,9 @@ class MapVC: UIViewController {
     @IBOutlet weak var resColorImage: UIImageView!
     @IBOutlet weak var gradientView: DesignableView!
     
+    let coreLocation = CLLocationCoordinate2D(latitude: 22.315802, longitude: 39.106159)
+    lazy var mapOverview = UIView(frame: mapView.frame)
+    
     @IBAction func cancel(_ sender: Any) {
         mapView.register(BuildingMarker.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         smallsmall()
@@ -40,6 +43,7 @@ class MapVC: UIViewController {
         setResMode(hidden: true)
         textField.layer.cornerRadius = 8
         self.gradientView.backgroundColor = .clear
+        zoomMapViewOut(to: coreLocation.latitude, long: coreLocation.longitude)
     }
     
     private func setResMode(hidden: Bool) {
@@ -87,10 +91,13 @@ class MapVC: UIViewController {
         resButton.layer.cornerRadius = 10
         
         let regionRadius: CLLocationDistance = 1200
-        let location = CLLocationCoordinate2D(latitude: 22.315802, longitude: 39.106159)
-        let coordinateRegion = MKCoordinateRegion(center: location,
+        
+        let coordinateRegion = MKCoordinateRegion(center: coreLocation,
                                                   latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
+        
+        mapOverview.backgroundColor = .white
+        
     }
     
     func setResColor(_ color: UIColor) {
@@ -189,6 +196,18 @@ class MapVC: UIViewController {
         filtered = logs.filter({$0.name!.lowercased().prefix(searchText.count) == searchText})
         tableView.reloadData()
     }
+    
+    func zoomMapViewIn(to lat: Double, long: Double) {
+        let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        let region = MKCoordinateRegion(center: location, latitudinalMeters: 150, longitudinalMeters: 150)
+        mapView.setRegion(region, animated: true)
+    }
+    
+    func zoomMapViewOut(to lat: Double, long: Double) {
+        let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        let region = MKCoordinateRegion(center: location, latitudinalMeters: 1200, longitudinalMeters: 1200)
+        mapView.setRegion(region, animated: true)
+    }
 
 }
 
@@ -243,7 +262,8 @@ extension MapVC: UITableViewDataSource, UITableViewDelegate {
                     let areasSorted = areas.sorted(by: { (first, second) -> Bool in
                         return true
                     })
-                    if let slotsAvailable = areasSorted.first!.slotsAvailable {
+                    if let area = areasSorted.first {
+                        let slotsAvailable = area.slotsAvailable!
                         if slotsAvailable <= 5 {
                             self.setResColor(.ourRed)
                         } else if slotsAvailable <= 10 {
@@ -251,8 +271,11 @@ extension MapVC: UITableViewDataSource, UITableViewDelegate {
                         } else {
                             self.setResColor(.ourGreen)
                         }
+                        self.gradientView.backgroundColor = .white
+                        self.view.layoutIfNeeded()
+                        self.zoomMapViewIn(to: area.latitude!, long: area.longitude!)
                     }
-                    self.gradientView.backgroundColor = .white
+                    
                 }
             })
     }
