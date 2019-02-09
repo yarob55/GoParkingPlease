@@ -10,6 +10,47 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--SplashVC-->
+        <scene sceneID="bLe-R8-WHr">
+            <objects>
+                <viewController storyboardIdentifier="splashvc" id="9DH-M3-ezj" customClass="SplashVC" customModule="GoParkingPlease" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4WE-ZA-PRI"/>
+                        <viewControllerLayoutGuide type="bottom" id="qmD-Dt-ZfS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5c8-9C-Y1o">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="bLX-7r-OQY">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="space" translatesAutoresizingMaskIntoConstraints="NO" id="iT8-J9-V9C">
+                                <rect key="frame" x="137.5" y="280" width="100" height="107"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="iT8-J9-V9C" secondAttribute="height" multiplier="100:107" id="31Y-xO-IO4"/>
+                                    <constraint firstAttribute="width" constant="100" id="yry-W8-C02"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="qmD-Dt-ZfS" firstAttribute="top" secondItem="bLX-7r-OQY" secondAttribute="bottom" id="93M-75-MYt"/>
+                            <constraint firstItem="iT8-J9-V9C" firstAttribute="centerY" secondItem="bLX-7r-OQY" secondAttribute="centerY" id="ID2-19-e6b"/>
+                            <constraint firstItem="bLX-7r-OQY" firstAttribute="top" secondItem="5c8-9C-Y1o" secondAttribute="top" id="VZ2-P4-GsD"/>
+                            <constraint firstItem="bLX-7r-OQY" firstAttribute="leading" secondItem="5c8-9C-Y1o" secondAttribute="leading" id="bkk-kT-tGX"/>
+                            <constraint firstAttribute="trailing" secondItem="bLX-7r-OQY" secondAttribute="trailing" id="pXB-hr-Tc2"/>
+                            <constraint firstItem="iT8-J9-V9C" firstAttribute="centerX" secondItem="bLX-7r-OQY" secondAttribute="centerX" id="vRS-4x-1LA"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="logo" destination="iT8-J9-V9C" id="zer-Kg-Y2V"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3ee-qw-5Xi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-97" y="-1"/>
+        </scene>
         <!--LoginVC-->
         <scene sceneID="HJS-On-sHN">
             <objects>
@@ -180,5 +221,6 @@
         <image name="background" width="414" height="736"/>
         <image name="goParking_logo" width="243" height="107"/>
         <image name="key" width="22" height="12"/>
+        <image name="space" width="446.8800048828125" height="270"/>
     </resources>
 </document>

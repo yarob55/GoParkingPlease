@@ -26,16 +26,41 @@ class LoginVC: UIViewController, SAPFioriLoadingIndicator
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         navigationController?.navigationBar.isHidden = true
         loadingIndicator = FUILoadingIndicatorView()
+        setHiddenElements()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showElements()
         animateElements()
     }
     
     
+    func setHiddenElements(){
+        signInLabel.isHidden = true
+        descriptionLabel.isHidden = true
+        logoImageView.isHidden = true
+        usernameView.isHidden = true
+        passwordView.isHidden = true
+        signInButton.isHidden = true
+    }
+    
+    func showElements(){
+        signInLabel.isHidden = false
+        descriptionLabel.isHidden = false
+        logoImageView.isHidden = false
+        usernameView.isHidden = false
+        passwordView.isHidden = false
+        signInButton.isHidden = false
+    }
+    
     func animateElements()
     {
-        let duration:CGFloat = 2
+        let duration:CGFloat = 1.3
         
         //logo view
         logoImageView.animation = "fadeInDown"
@@ -82,12 +107,66 @@ class LoginVC: UIViewController, SAPFioriLoadingIndicator
         descriptionLabel.delay = 4
         descriptionLabel.animate()
     }
+    
+    func animateOut(completion:@escaping ()->()){
+        var duartion:CGFloat = 1.2
+        
+        //username view
+        UIView.animate(withDuration: 0.1, delay: 0.5, options: [], animations: {
+            self.usernameView.transform = CGAffineTransform(outside: self.view.bounds, from: .left)
+        }, completion: nil)
+        
+        //password view
+        UIView.animate(withDuration: 0.1, delay: 1, options: [], animations: {
+            self.passwordView.transform = CGAffineTransform(outside: self.view.bounds, from: .left)
+        }, completion: nil)
+        
+        //signIn Label
+        signInLabel.animation = "fadeOut"
+        signInLabel.curve = "easeIn"
+        signInLabel.duration = duartion
+        signInLabel.delay = 1.5
+        signInLabel.animate()
+        
+        
+        //description Label
+        descriptionLabel.animation = "fadeOut"
+        descriptionLabel.curve = "easeIn"
+        descriptionLabel.duration = duartion
+        descriptionLabel.delay = 2
+        descriptionLabel.animate()
+        
+        //button view
+        signInButton.animation = "zoomOut"
+        signInButton.curve = "easeIn"
+        signInButton.duration = duartion
+        signInButton.delay = 2.5
+        signInButton.animateNext {
+            completion()
+        }
+
+        
+        
+//        usernameView.transform = CGAffineTransform(outside: view.bounds, from: .left)
+//        usernameView.animation = "squeezeLeft"
+//        usernameView.curve = "easeIn"
+//        usernameView.duration = duartion
+//        usernameView.delay = 0
+//        usernameView.animateNext {
+//            completion()
+//        }
+        
+        
+    }
  
     @IBAction func login(_ sender: UIButton) {
         showFioriLoadingIndicator()
         DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-            let vc = Constants.Storyboard.MapVC.instantiateViewController(withIdentifier: "MapVC")
-            self.present(vc, animated: true, completion: nil)
+           self.animateOut {
+                 let vc = Constants.Storyboard.MapVC.instantiateViewController(withIdentifier: "MapVC") as! MapVC
+                self.present(vc, animated: true, completion: nil)
+            }
+            
         }
     }
     

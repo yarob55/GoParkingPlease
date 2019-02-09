@@ -28,6 +28,7 @@
 		49E514D0220E236F0022AE04 /* LogsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E514CE220E236F0022AE04 /* LogsVC.swift */; };
 		49E514D1220E236F0022AE04 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E514CF220E236F0022AE04 /* MapVC.swift */; };
 		49E514D3220E244D0022AE04 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E514D2220E244D0022AE04 /* API.swift */; };
+		49FAA61D220EA7CB00309206 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FAA61C220EA7CB00309206 /* SplashVC.swift */; };
 		53BD28A4019F2EE028C5A9F9 /* UserSetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4E433B6436131291B2D30 /* UserSetType.swift */; };
 		72AB8F2436BC4C34FC0E6772 /* BuildingSetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE71B2186CEF872E3343E1C /* BuildingSetType.swift */; };
 		755533991F25FD330017A1BC /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -114,6 +115,7 @@
 		49E514CE220E236F0022AE04 /* LogsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsVC.swift; sourceTree = "<group>"; };
 		49E514CF220E236F0022AE04 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		49E514D2220E244D0022AE04 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		49FAA61C220EA7CB00309206 /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		4B24598D677A718EA0772674 /* Pods-GoParkingPlease.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoParkingPlease.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoParkingPlease/Pods-GoParkingPlease.release.xcconfig"; sourceTree = "<group>"; };
 		6596C154E1A064AECFEC055E /* Pods_GoParkingPlease.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoParkingPlease.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		67A8A9165C6417030476384F /* ReservationSetType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReservationSetType.swift; path = "Proxy Classes/GoParking/public/ReservationSetType.swift"; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				49E514CE220E236F0022AE04 /* LogsVC.swift */,
 				49E514CF220E236F0022AE04 /* MapVC.swift */,
 				D60FAB9A220DD56C004D5502 /* SnapshotViewController.swift */,
+				49FAA61C220EA7CB00309206 /* SplashVC.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 				7A9F6FF61F3883D3000A1815 /* SAPFioriLoadingIndicator.swift in Sources */,
 				7A26CA1C1F31BA8800B156B6 /* CellCreationHelper.swift in Sources */,
 				12E07EF21E96851800460A94 /* CollectionType.swift in Sources */,
+				49FAA61D220EA7CB00309206 /* SplashVC.swift in Sources */,
 				D60FAB94220DD459004D5502 /* CustomizableView.swift in Sources */,
 				49E514C7220DFF840022AE04 /* customButton.swift in Sources */,
 				D60FAB7F220DD43D004D5502 /* DesignableView.swift in Sources */,
