@@ -20,11 +20,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     private let logger = Logger.shared(named: "AppDelegateLogger")
     var parking: Parking<OnlineODataProvider>!
 
-    func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Set a FUIInfoViewController as the rootViewController, since there it is none set in the Main.storyboard
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window!.rootViewController = FUIInfoViewController.createSplashScreenInstanceFromStoryboard()
 
+        UNUserNotificationCenter.current().requestAuthorization(options:
+            [[.alert, .sound, .badge]], completionHandler: { (granted, error) in
+                
+        })
+        UNUserNotificationCenter.current().delegate = self
+        
         IQKeyboardManager.shared.enable = true
         
         do {
@@ -42,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
         return true
     }
-
+    
     // To only support portrait orientation during onboarding
     func application(_: UIApplication, supportedInterfaceOrientationsFor _: UIWindow?) -> UIInterfaceOrientationMask {
         switch OnboardingFlowController.presentationState {

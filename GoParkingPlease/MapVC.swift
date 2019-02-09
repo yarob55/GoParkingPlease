@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 import SAPFiori
-import SwiftEntryKit
+import UserNotifications
 
 class MapVC: UIViewController {
     
@@ -87,6 +87,38 @@ class MapVC: UIViewController {
         setupUI()
         fetchData()
         setResMode(hidden: true)
+        
+//        let button = UIBarButtonItem(title: "TITLEELE", style: .done, target: self, action: #selector(sendNotification))
+        let buttont = UIButton(type: .custom)
+        buttont.setTitle("TITLELEL", for: .normal)
+        buttont.setTitleColor(UIColor(hex: "425F75"), for: .normal)
+        buttont.alpha = 1
+        buttont.addTarget(self, action: #selector(sendNotification), for: .touchUpInside)
+//        button.tintColor = UIColor(hex: "253A50")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: buttont)
+        
+    }
+    
+    @objc
+    func sendNotification() {
+        print("hadi is ")
+        let content = UNMutableNotificationContent()
+        content.title = "Parking Slot is Available"
+//        content.subtitle = messageSubtitle
+        content.body = "Click to reserve"
+        content.badge = 1
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5,
+                                                        repeats: false)
+        
+        let requestIdentifier = "demoNotification"
+        let request = UNNotificationRequest(identifier: requestIdentifier,
+                                            content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request,
+                                               withCompletionHandler: { (error) in
+                                                // Handle error
+        })
     }
     
     @objc private func showLogs() {
