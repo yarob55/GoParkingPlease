@@ -70,6 +70,7 @@
 		D60FAB94220DD459004D5502 /* CustomizableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60FAB8F220DD459004D5502 /* CustomizableView.swift */; };
 		D60FAB9B220DD56C004D5502 /* SnapshotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60FAB9A220DD56C004D5502 /* SnapshotViewController.swift */; };
 		D6D5DDC2220DF2C900AA9AA3 /* BuildingAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D5DDC1220DF2C900AA9AA3 /* BuildingAnnotation.swift */; };
+		D6D5DDC8220E9E3E00AA9AA3 /* SAPFioriProcessingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D5DDC7220E9E3E00AA9AA3 /* SAPFioriProcessingIndicator.swift */; };
 		F847AE6E176341280CB329CC /* ParkingMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8567C07E5514463CEC8E1007 /* ParkingMetadata.swift */; };
 		F90854F6157ABA535598E8D3 /* ParkingMetadataText.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FC461292D122D6CA54601E /* ParkingMetadataText.swift */; };
 /* End PBXBuildFile section */
@@ -151,6 +152,7 @@
 		D60FAB8F220DD459004D5502 /* CustomizableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomizableView.swift; sourceTree = "<group>"; };
 		D60FAB9A220DD56C004D5502 /* SnapshotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotViewController.swift; sourceTree = "<group>"; };
 		D6D5DDC1220DF2C900AA9AA3 /* BuildingAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingAnnotation.swift; sourceTree = "<group>"; };
+		D6D5DDC7220E9E3E00AA9AA3 /* SAPFioriProcessingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SAPFioriProcessingIndicator.swift; sourceTree = "<group>"; };
 		DBFB71DDD01818DF2B0B20FA /* Parking.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Parking.swift; path = "Proxy Classes/GoParking/public/Parking.swift"; sourceTree = "<group>"; };
 		DC0B3A213DEA08CB98F661CD /* Pods-GoParkingPlease.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoParkingPlease.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoParkingPlease/Pods-GoParkingPlease.debug.xcconfig"; sourceTree = "<group>"; };
 		E8A23F569C2F547C353F92BA /* AreaSetType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AreaSetType.swift; path = "Proxy Classes/GoParking/public/AreaSetType.swift"; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				7A9F6FF51F3883D3000A1815 /* SAPFioriLoadingIndicator.swift */,
+				D6D5DDC7220E9E3E00AA9AA3 /* SAPFioriProcessingIndicator.swift */,
 				7A26CA1B1F31BA8800B156B6 /* CellCreationHelper.swift */,
 			);
 			name = Utils;
@@ -399,7 +402,7 @@
 				TargetAttributes = {
 					7A1315B41D4B982000A5DA56 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 23JV9CX78L;
+						DevelopmentTeam = B8UCDP9M4Y;
 						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
@@ -523,6 +526,7 @@
 				C6A75100317A68B37F8EA791 /* AreaSetType.swift in Sources */,
 				53BD28A4019F2EE028C5A9F9 /* UserSetType.swift in Sources */,
 				D60FAB7D220DD43D004D5502 /* Button.swift in Sources */,
+				D6D5DDC8220E9E3E00AA9AA3 /* SAPFioriProcessingIndicator.swift in Sources */,
 				F847AE6E176341280CB329CC /* ParkingMetadata.swift in Sources */,
 				72AB8F2436BC4C34FC0E6772 /* BuildingSetType.swift in Sources */,
 				D60FAB90220DD459004D5502 /* CustomizableImageView.swift in Sources */,
@@ -694,7 +698,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 23JV9CX78L;
+				DEVELOPMENT_TEAM = B8UCDP9M4Y;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -717,7 +721,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 23JV9CX78L;
+				DEVELOPMENT_TEAM = B8UCDP9M4Y;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
