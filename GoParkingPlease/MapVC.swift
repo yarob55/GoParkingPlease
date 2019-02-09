@@ -33,7 +33,7 @@ class MapVC: UIViewController {
     @IBOutlet weak var limtedField: UILabel!
     @IBOutlet weak var resNumField: UILabel!
     
-    let coreLocation = CLLocationCoordinate2D(latitude: 22.315802, longitude: 39.106159)
+    let coreLocation = CLLocationCoordinate2D(latitude: 22.309733, longitude: 39.104643)
     lazy var mapOverview = UIView(frame: mapView.frame)
     
     @IBAction func cancel(_ sender: Any) {
@@ -44,6 +44,8 @@ class MapVC: UIViewController {
         setResMode(hidden: true)
         textField.layer.cornerRadius = 8
         zoomMapViewOut(to: coreLocation.latitude, long: coreLocation.longitude)
+        mapView.removeAnnotations(mapView.annotations)
+        loadPins()
     }
     
     private func setResMode(hidden: Bool) {
@@ -172,6 +174,7 @@ class MapVC: UIViewController {
         for building in logs {
             if let lat = building.latitude, let long = building.longitude {
                 let annoatation = BuildingAnnotation(coordinate: CLLocationCoordinate2D(latitude: lat, longitude: long))
+                annoatation.building = building
 //                annoatation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
                 mapView.addAnnotation(annoatation)
             }
@@ -187,7 +190,7 @@ class MapVC: UIViewController {
     }
     
     func smallsmall() {
-        tableViewTopConstraint.constant = 600
+        tableViewTopConstraint.constant = 300
         tf_right.constant = 28
         tf_left.constant = 28
         tf_top.constant = 10
@@ -195,27 +198,38 @@ class MapVC: UIViewController {
         UIView.animate(withDuration: 0.2, animations: {
             self.view.layoutIfNeeded()
             self.cancelButton.alpha = 0
+            self.tableView.alpha = 0
         }) { (_) in
             self.cancelButton.isHidden = true
+            self.tableView.isHidden = true
         }
     }
     
-    func bigbig() {
-        tableViewTopConstraint.isActive = false
-        tableViewTopConstraint = tableView.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 0)
-        tableViewTopConstraint.isActive = true
-        
-        
+    
+    func big() {
         tf_top.constant = 0
         tf_left.constant = 0
         tf_right.constant = 60
         cancelButton.isHidden = false
+        
         UIView.animate(withDuration: 0.2) {
             self.view.layoutIfNeeded()
             self.cancelButton.alpha = 1
+            self.textField.layer.cornerRadius = 0
         }
         
-        textField.layer.cornerRadius = 0
+    }
+    
+    
+    func bigbig() {
+
+        tableViewTopConstraint.constant = 0
+        big()
+        tableView.isHidden = false
+        UIView.animate(withDuration: 0.2) {
+            self.view.layoutIfNeeded()
+            self.tableView.alpha = 1
+        }
     }
     
     @objc private func textFieldDidChange(textField: UITextField) {
@@ -264,6 +278,17 @@ extension MapVC: MKMapViewDelegate {
         }
         
     }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if let buildannotaion = view.annotation as? BuildingAnnotation {
+            for (index, value) in logs.enumerated() {
+                if value == buildannotaion.building {
+                    selectBuilding(index, tableView)
+                }
+            }
+            
+        }
+    }
 }
 
 
@@ -289,58 +314,71 @@ extension MapVC: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
+    fileprivate func selectBuilding(_ index: Int, _ tableView: UITableView) {
+        big()
+        var count: Int = 3, skip: Int!
+        if index == 0 {
+            skip = 0
+        } else if index == 1 {
+            skip = 3
+        } else {
+            skip = 6
+        }
+        API.shared.getAreas(count: count, skip: skip, completion: { (areas) in
+            DispatchQueue.main.async {
+                self.choose()
+                self.textField.resignFirstResponder()
+                self.setResMode(hidden: false)
+//                self.tableViewTopConstraint.isActive = false
+//                self.tableViewTopConstraint = tableView.topAnchor.constraint(equalTo: self.resView.topAnchor, constant: 0)
+//                self.tableViewTopConstraint.isActive = true
+                self.resViewTopConstraint.constant = -120
+                UIView.animate(withDuration: 0.3) {
+                    self.view.layoutIfNeeded()
+                }
+                let areasSorted = areas.sorted(by: { (first, second) -> Bool in
+                    return true
+                })
+                if let area = areasSorted.first {
+                    let slotsAvailable = area.slotsAvailable!
+                    var annotation: MKAnnotation!
+                    if slotsAvailable <= 5 {
+                        self.setResColor(.ourRed)
+                        self.limtedField.text = "Jammed"
+                        annotation = ParkingAreaAnnotationRed(coordinate: CLLocationCoordinate2D(latitude: area.latitude!, longitude: area.longitude!))
+                    } else if slotsAvailable <= 10 {
+                        self.setResColor(.ourYellow)
+                        self.limtedField.text = "Limted"
+                        annotation = ParkingAreaAnnotationYello(coordinate: CLLocationCoordinate2D(latitude: area.latitude!, longitude: area.longitude!))
+                    } else {
+                        self.setResColor(.ourGreen)
+                        self.limtedField.text = "Available"
+                        annotation = ParkingAreaAnnotationGreen(coordinate: CLLocationCoordinate2D(latitude: area.latitude!, longitude: area.longitude!))
+                    }
+                    self.view.layoutIfNeeded()
+                    self.zoomMapViewIn(to: area.latitude!, long: area.longitude!)
+                    
+                    self.mapView.addAnnotation(annotation)
+                    self.resColorTitle.text = area.name
+                    self.resNumField.text = "\(slotsAvailable) empty slots"
+                }
+                
+            }
+        })
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-            let _ = self.logs[indexPath.row]
-            var count: Int = 3, skip: Int!
-            if indexPath.row == 0 {
-                skip = 0
-            } else if indexPath.row == 1 {
-                skip = 3
-            } else {
-                skip = 6
-            }
-            API.shared.getAreas(count: count, skip: skip, completion: { (areas) in
-                DispatchQueue.main.async {
-                    self.choose()
-                    self.textField.resignFirstResponder()
-                    self.setResMode(hidden: false)
-                    self.tableViewTopConstraint.isActive = false
-                    self.tableViewTopConstraint = tableView.topAnchor.constraint(equalTo: self.resView.topAnchor, constant: 0)
-                    self.tableViewTopConstraint.isActive = true
-                    self.resViewTopConstraint.constant = -120
-                    UIView.animate(withDuration: 0.3) {
-                        self.view.layoutIfNeeded()
-                    }
-                    let areasSorted = areas.sorted(by: { (first, second) -> Bool in
-                        return true
-                    })
-                    if let area = areasSorted.first {
-                        let slotsAvailable = area.slotsAvailable!
-                        var annotation: MKAnnotation!
-                        if slotsAvailable <= 5 {
-                            self.setResColor(.ourRed)
-                            self.limtedField.text = "Jammed"
-                            annotation = ParkingAreaAnnotationRed(coordinate: CLLocationCoordinate2D(latitude: area.latitude!, longitude: area.longitude!))
-                        } else if slotsAvailable <= 10 {
-                            self.setResColor(.ourYellow)
-                            self.limtedField.text = "Limted"
-                            annotation = ParkingAreaAnnotationYello(coordinate: CLLocationCoordinate2D(latitude: area.latitude!, longitude: area.longitude!))
-                        } else {
-                            self.setResColor(.ourGreen)
-                            self.limtedField.text = "Available"
-                            annotation = ParkingAreaAnnotationGreen(coordinate: CLLocationCoordinate2D(latitude: area.latitude!, longitude: area.longitude!))
-                        }
-                        self.view.layoutIfNeeded()
-                        self.zoomMapViewIn(to: area.latitude!, long: area.longitude!)
-                        
-                        self.mapView.addAnnotation(annotation)
-                        self.resColorTitle.text = area.name
-                        self.resNumField.text = "\(slotsAvailable) empty slots"
-                    }
-                    
-                }
-            })
+//            let _ = self.logs[indexPath.row]
+//            var count: Int = 3, skip: Int!
+//            if indexPath.row == 0 {
+//                skip = 0
+//            } else if indexPath.row == 1 {
+//                skip = 3
+//            } else {
+//                skip = 6
+//            }
+            selectBuilding(indexPath.row, tableView)
     }
     
     

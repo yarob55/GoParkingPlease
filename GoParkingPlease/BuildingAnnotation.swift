@@ -12,7 +12,7 @@ import MapKit
 class BuildingAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     
-    
+    var building: BuildingSetType!
     
     init(coordinate: CLLocationCoordinate2D) {
         self.coordinate = coordinate

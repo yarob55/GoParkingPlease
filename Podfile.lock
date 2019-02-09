@@ -8,6 +8,11 @@ DEPENDENCIES:
   - RevealingSplashView
   - Spring (from `https://github.com/MengTo/Spring.git`)
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - IQKeyboardManagerSwift
+    - RevealingSplashView
+
 EXTERNAL SOURCES:
   Spring:
     :git: https://github.com/MengTo/Spring.git
@@ -24,4 +29,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 6857b68d9bf3aef09dc0cae48e8ccfffbb763a11
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3

@@ -163,7 +163,7 @@ class LoginVC: UIViewController, SAPFioriLoadingIndicator
         showFioriLoadingIndicator()
         DispatchQueue.main.asyncAfter(deadline: .now()+1) {
            self.animateOut {
-                 let vc = Constants.Storyboard.MapVC.instantiateViewController(withIdentifier: "MapVC") as! MapVC
+                 let vc = Constants.Storyboard.MapVC.instantiateViewController(withIdentifier: "MapVC") 
                 self.present(vc, animated: true, completion: nil)
             }
             
