@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 import SAPFiori
-
+import SwiftEntryKit
 
 class MapVC: UIViewController {
     
@@ -32,9 +32,34 @@ class MapVC: UIViewController {
     @IBOutlet weak var resColorImage: UIImageView!
     @IBOutlet weak var limtedField: UILabel!
     @IBOutlet weak var resNumField: UILabel!
+    @IBOutlet weak var messageView: DesignableView!
+    @IBOutlet weak var messageViewImage: UIImageView!
     
     let coreLocation = CLLocationCoordinate2D(latitude: 22.309733, longitude: 39.104643)
     lazy var mapOverview = UIView(frame: mapView.frame)
+    
+    @IBAction func res(_ sender: Any) {
+        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseIn, animations: {
+            self.messageView.transform = .identity
+        }, completion: nil)
+    }
+    
+    @IBAction func dismissMessageView(_ sender: Any) {
+        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
+            self.messageView.transform = CGAffineTransform(outside: self.view.bounds, from: .bottom)
+        }, completion: nil)
+    }
+    
+    @IBAction func openGoogleMaps(_ sender: Any) {
+        if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!))
+        {
+            UIApplication.shared.openURL(NSURL(string:
+                "comgooglemaps://?saddr=&daddr=\(Float(coreLocation.latitude)),\(Float(coreLocation.latitude))&directionsmode=driving")! as URL)
+        } else
+        {
+            NSLog("Can't use com.google.maps://");
+        }
+    }
     
     @IBAction func cancel(_ sender: Any) {
         mapView.register(BuildingMarker.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
@@ -70,6 +95,10 @@ class MapVC: UIViewController {
     }
     
     private func setupUI() {
+        messageView.transform = CGAffineTransform(outside: view.bounds, from: .bottom)
+        
+        messageViewImage.image = FUIIconLibrary.system.selected.withRenderingMode(.alwaysTemplate)
+        messageViewImage.tintColor = .ourGreen
         let clock = FUIIconLibrary.indicator.clock.withRenderingMode(.alwaysTemplate)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: clock, style: .done, target: self, action: #selector(showLogs))
         
@@ -240,7 +269,7 @@ class MapVC: UIViewController {
     
     func zoomMapViewIn(to lat: Double, long: Double) {
         let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
-        let region = MKCoordinateRegion(center: location, latitudinalMeters: 150, longitudinalMeters: 150)
+        let region = MKCoordinateRegion(center: location, latitudinalMeters: 250, longitudinalMeters: 250)
         mapView.setRegion(region, animated: true)
     }
     
@@ -362,6 +391,13 @@ extension MapVC: UITableViewDataSource, UITableViewDelegate {
                     self.resColorTitle.text = area.name
                     self.resNumField.text = "\(slotsAvailable) empty slots"
                 }
+                self.tableViewTopConstraint.constant = 300
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.view.layoutIfNeeded()
+                    self.tableView.alpha = 0
+                }) { (_) in
+                    self.tableView.isHidden = true
+                }
                 
             }
         })
@@ -379,6 +415,7 @@ extension MapVC: UITableViewDataSource, UITableViewDelegate {
 //                skip = 6
 //            }
             selectBuilding(indexPath.row, tableView)
+        
     }
     
     

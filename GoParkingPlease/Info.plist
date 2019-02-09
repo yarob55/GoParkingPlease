@@ -25,6 +25,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<false/>
 	</dict>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>comgooglemaps</string>
+    </array> 
 	<key>NSFaceIDUsageDescription</key>
 	<string>Please permit using Face ID.</string>
 	<key>UILaunchStoryboardName</key>

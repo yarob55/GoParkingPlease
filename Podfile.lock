@@ -1,17 +1,23 @@
 PODS:
   - IQKeyboardManagerSwift (6.2.0)
+  - QuickLayout (2.1.1)
   - RevealingSplashView (0.6.0)
   - Spring (1.0.6)
+  - SwiftEntryKit (0.8.4):
+    - QuickLayout (= 2.1.1)
 
 DEPENDENCIES:
   - IQKeyboardManagerSwift
   - RevealingSplashView
   - Spring (from `https://github.com/MengTo/Spring.git`)
+  - SwiftEntryKit
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - IQKeyboardManagerSwift
+    - QuickLayout
     - RevealingSplashView
+    - SwiftEntryKit
 
 EXTERNAL SOURCES:
   Spring:
@@ -24,9 +30,11 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   IQKeyboardManagerSwift: b07ccf9d8cafe993dcd6cb794eb4ba34611a0c4e
+  QuickLayout: 9af2b7fd89a6552828f51a5aba28d1bcdb8b340c
   RevealingSplashView: 40c5a770894459736acdc95655eeba0dd30ce91c
   Spring: 3d113f14575ef79aec9c5f906dfa4f5001c03254
+  SwiftEntryKit: f0dd54bb0fb9f234738cd15a32365265cb975be8
 
-PODFILE CHECKSUM: 6857b68d9bf3aef09dc0cae48e8ccfffbb763a11
+PODFILE CHECKSUM: b6684159dcc269faeefc2d31683f3cf0f1d2c095
 
 COCOAPODS: 1.5.3

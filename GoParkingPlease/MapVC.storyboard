@@ -141,6 +141,9 @@
                                         <state key="normal" title="Reserve">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="res:" destination="OHH-7U-Cxk" eventType="touchUpInside" id="7Xa-Fp-j7w"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -172,9 +175,93 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Duc-rC-Nxt" customClass="DesignableView" customModule="GoParkingPlease" customModuleProvider="target">
+                                <rect key="frame" x="52.5" y="233.5" width="270" height="200"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="euW-8P-j1b">
+                                        <rect key="frame" x="16" y="16" width="238" height="178"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ej8-Xc-Lw4">
+                                                <rect key="frame" x="65" y="0.0" width="108" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="45" id="kzz-MT-szH"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your parking slot has been reserved" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vYM-g1-IYK">
+                                                <rect key="frame" x="45" y="53" width="148" height="36"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" red="0.36862745098039218" green="0.41176470588235292" blue="0.44705882352941173" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="255" verticalCompressionResistancePriority="749" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="174-Gx-Jly">
+                                                <rect key="frame" x="49" y="97" width="140" height="81"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h8c-S2-gMD" customClass="CustomButton" customModule="GoParkingPlease" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="140" height="35"/>
+                                                        <color key="backgroundColor" red="0.38039215686274508" green="0.56862745098039214" blue="0.72941176470588232" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="140" id="Ma9-Aa-ife"/>
+                                                            <constraint firstAttribute="height" constant="35" id="kJi-wc-4VO"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <state key="normal" title="Start Navigation">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRad">
+                                                                <real key="value" value="12"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="openGoogleMaps:" destination="OHH-7U-Cxk" eventType="touchUpInside" id="UfZ-Yw-jEW"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZfZ-Nr-w0y">
+                                                        <rect key="frame" x="0.0" y="37" width="140" height="44"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <state key="normal" title="Dismiss">
+                                                            <color key="titleColor" red="0.3803921569" green="0.56862745100000001" blue="0.72941176470000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="dismissMessageView:" destination="OHH-7U-Cxk" eventType="touchUpInside" id="RD8-4n-7zh"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="euW-8P-j1b" firstAttribute="leading" secondItem="Duc-rC-Nxt" secondAttribute="leading" constant="16" id="FdH-uS-k16"/>
+                                    <constraint firstAttribute="trailing" secondItem="euW-8P-j1b" secondAttribute="trailing" constant="16" id="fq1-gC-uJ4"/>
+                                    <constraint firstAttribute="height" constant="200" id="h4S-0h-Egk"/>
+                                    <constraint firstAttribute="bottom" secondItem="euW-8P-j1b" secondAttribute="bottom" constant="6" id="kRM-R7-BKE"/>
+                                    <constraint firstAttribute="width" constant="270" id="ltV-WM-7PY"/>
+                                    <constraint firstItem="euW-8P-j1b" firstAttribute="top" secondItem="Duc-rC-Nxt" secondAttribute="top" constant="16" id="q8x-JP-VIH"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="topColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="bottomColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="18"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowBlur">
+                                        <real key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                        <color key="value" white="0.0" alpha="0.1600224743150685" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Duc-rC-Nxt" firstAttribute="centerX" secondItem="GRG-kX-n9y" secondAttribute="centerX" id="2aU-f4-MiC"/>
                             <constraint firstAttribute="bottom" secondItem="ghj-rZ-Ze6" secondAttribute="bottom" id="3NX-JR-HtX"/>
                             <constraint firstItem="b2r-81-CHV" firstAttribute="top" secondItem="dv7-NM-E3F" secondAttribute="bottom" id="Bs4-8F-d5N"/>
                             <constraint firstItem="IDQ-hO-UUr" firstAttribute="leading" secondItem="xeD-Pn-SWc" secondAttribute="leading" id="D3c-Dz-ZOb"/>
@@ -194,6 +281,7 @@
                             <constraint firstItem="ghj-rZ-Ze6" firstAttribute="trailing" secondItem="xeD-Pn-SWc" secondAttribute="trailing" id="cP6-Uj-LuE"/>
                             <constraint firstItem="dv7-NM-E3F" firstAttribute="top" secondItem="xeD-Pn-SWc" secondAttribute="top" id="gpK-ex-i6f"/>
                             <constraint firstItem="azu-He-L6H" firstAttribute="bottom" secondItem="xeD-Pn-SWc" secondAttribute="bottom" id="iVK-0c-o9S"/>
+                            <constraint firstItem="Duc-rC-Nxt" firstAttribute="centerY" secondItem="GRG-kX-n9y" secondAttribute="centerY" id="pgy-ML-Cqj"/>
                             <constraint firstItem="ghj-rZ-Ze6" firstAttribute="top" secondItem="GRG-kX-n9y" secondAttribute="bottom" constant="-90" id="tcf-B9-s65"/>
                             <constraint firstItem="xeD-Pn-SWc" firstAttribute="trailing" secondItem="5L2-OQ-Adf" secondAttribute="trailing" constant="28" id="yRz-0C-Pnd"/>
                         </constraints>
@@ -208,6 +296,8 @@
                         <outlet property="cancelButton" destination="b2r-81-CHV" id="aPf-YC-dpF"/>
                         <outlet property="limtedField" destination="NDT-EA-z2m" id="Yzw-Sr-lDv"/>
                         <outlet property="mapView" destination="IDQ-hO-UUr" id="lU2-wF-B2d"/>
+                        <outlet property="messageView" destination="Duc-rC-Nxt" id="tLn-ZN-kh6"/>
+                        <outlet property="messageViewImage" destination="ej8-Xc-Lw4" id="k4U-07-Dgt"/>
                         <outlet property="resButton" destination="ViT-0m-ryr" id="KNV-vw-LGQ"/>
                         <outlet property="resColorImage" destination="CP9-gf-kcD" id="5cr-Jb-9sz"/>
                         <outlet property="resColorTitle" destination="M37-LQ-x3s" id="JBp-5F-ZKp"/>
